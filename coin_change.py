@@ -30,22 +30,11 @@ Constraints:
 
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        @lru_cache(None)
-        def dp(i):
-            if i < 0:
-                return -1
-            if i == 0:
-                return 0
-            min_cost = float("inf")
-            for c in coins:
-                res = dp(i - c)
-                if res != -1:
-                    min_cost = min(min_cost, res + 1)
-            
-            if min_cost != float("inf"):
-                return min_cost
-            else:
-                return -1
+        dp = [float("inf")] * (amount + 1)
+        dp[0] = 0
         
-        return dp(amount)
-        
+        for i in coins:
+            for j in range(i, amount + 1):
+                dp[j] = min(dp[j], dp[j - i] + 1)
+                
+        return dp[amount] if dp[amount] != float("inf") else -1
