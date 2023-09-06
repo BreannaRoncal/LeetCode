@@ -43,18 +43,18 @@ def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
     Do not return anything, modify nums1 in-place instead.
     """
     # Start the nums1 and nums2 index at the end of each list
-    i = m - 1
-    j = n - 1
-    # k is the end of nums1
-    k = m + n - 1
+    p1 = m - 1
+    p2 = n - 1
+  
+    # i is the end of nums1
+    i = m + n - 1
     
-    # while there are elements inside of j
-    while j >= 0:
-        if i >= 0 and nums1[i] > nums2[j]:
-            nums1[k] = nums1[i]
-            k -= 1
-            i -=1
+    # while there are elements inside of nums2
+    while p2 >= 0:
+        if p1 >= 0 and nums1[p1] > nums2[p2]:
+            nums1[i] = nums1[p1]
+            p1 -= 1
         else:
-            nums1[k] = nums2[j]
-            k -=1
-            j -=1
+            nums1[i] = nums2[p2]
+            p2 -= 1
+        i -= 1
